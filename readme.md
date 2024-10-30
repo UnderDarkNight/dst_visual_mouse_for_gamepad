@@ -3,8 +3,11 @@
 用来解决 手柄 虚拟控制 鼠标问题，以实现各种花样的自定义HUD界面的点击交互。
 
 控制台输入  
+
     dofile(resolvefilepath("test_fn/test.lua"))
+
 即可开启演示界面
+
 
 
 
