@@ -4,20 +4,33 @@
 
 控制台输入  
 
-    dofile(resolvefilepath("test_fn/test.lua"))
+    ThePlayer:PushEvent("OpenTestWidget")
+    
 
 即可开启演示界面
 
+测试临时代码则使用 
+
+    dofile(resolvefilepath("test_fn/test.lua"))
+
+运行这个lua里面的内容。
 
 
 
+ 
+This is a mod example and corresponding reference material.
 
-This is a sample mod and corresponding reference material.
+Used to solve the handle virtual control mouse problem to achieve various fancy custom HUD interface click interaction.
 
-Used to solve the handle virtual control mouse problem, in order to achieve a variety of fancy custom HUD interface click interaction.
+Console input  
 
-Console Input  
+    ThePlayer:PushEvent(“OpenTestWidget”)
+
+    
+to open the demo widget.
+
+To test the temporary code, use the 
 
     dofile(resolvefilepath(“test_fn/test.lua”))
-
-to open the demo interface
+    
+Run the contents of this lua.
