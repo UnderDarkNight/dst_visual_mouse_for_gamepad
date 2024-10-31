@@ -56,7 +56,7 @@ local flg,error_code = pcall(function()
             end
              
         end
-        local function setup_visual_mouset(front_root)
+        local function install_visual_mouse_to_page(front_root)
             front_root.inst:DoTaskInTime(0.5,function()                
                 ----------------------------------------------------------------------------------
                 --- 一些参数
@@ -142,24 +142,49 @@ local flg,error_code = pcall(function()
                     front_root.inst:ListenForEvent("onremove",function()
                         handler:Remove()
                     end)
+                    ----------------------------------------------------------------------
+                    --- 速度控制器
+                        local speed = 1
+                        local max_speed = 20
+                        local min_speed = 7
+                        local delta_speed = FRAMES*5
 
-                    local speed = 10
+                        local function GetSpeed()
+                            return speed
+                        end
+                        local function Speed_Up()
+                            speed = math.clamp(speed + delta_speed,min_speed,max_speed)                        
+                        end
+                        local function Speed_Down()
+                            speed = math.clamp(speed - delta_speed,min_speed,max_speed)   
+                        end
+                    ----------------------------------------------------------------------
                     base_root.inst:DoPeriodicTask(FRAMES,function()
+                        local speed_up_flag = false
                         if TheInput:IsControlPressed(CONTROL_MOVE_UP) then
                             -- print("up",math.random(1,100))
-                            mouse:move(0,speed)
+                            mouse:move(0,GetSpeed())
+                            speed_up_flag = true
                         end
                         if TheInput:IsControlPressed(CONTROL_MOVE_DOWN) then
                             -- print("down",math.random(1,100))
-                            mouse:move(0,-speed)
+                            mouse:move(0,-GetSpeed())
+                            speed_up_flag = true
                         end
                         if TheInput:IsControlPressed(CONTROL_MOVE_LEFT) then
                             -- print("left",math.random(1,100))
-                            mouse:move(-speed,0)
+                            mouse:move(-GetSpeed(),0)
+                            speed_up_flag = true
                         end
                         if TheInput:IsControlPressed(CONTROL_MOVE_RIGHT) then
                             -- print("right",math.random(1,100))
-                            mouse:move(speed,0)
+                            mouse:move(GetSpeed(),0)
+                            speed_up_flag = true
+                        end
+                        if speed_up_flag then
+                            Speed_Up()
+                        else
+                            Speed_Down()
                         end
                     end)
                 ----------------------------------------------------------------------------------
@@ -191,7 +216,7 @@ local flg,error_code = pcall(function()
             base_root.inst:ListenForEvent("onremove",function()
                 print("base root on remove event active")
             end)
-            setup_visual_mouset(base_root)
+            install_visual_mouse_to_page(base_root)
             base_root.inst.prefab = "base_root"
         ----------------------------------------------------------------------------------
         --- 界面绘画用的 根节点
