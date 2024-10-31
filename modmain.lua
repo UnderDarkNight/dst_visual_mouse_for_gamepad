@@ -10,15 +10,6 @@ modimport("imports_for_visual_mouse/__visual_mouse_init.lua")
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
--- modimport("Key_Modules_Of_FWD_IN_PDT/_All_Key_Modules_Init.lua")	---- 载入关键功能模块,在 prefab 加载之前，方便皮肤的API HOOK
-
-PrefabFiles = {}		---- 通过总入口 加载所有prefab。
-
--- GenerateSpicedFoods(require("script/prefabs/04_fwd_in_pdt_foods.lua"))
--- local spicedfoods = require("spicedfoods")
--- for k, recipe in pairs(spicedfoods) do
---     if recipe.mod and recipe.mod == "fwd_in_pdt" then
---         recipe.official = false
---         AddCookerRecipe("portablespicer", recipe)
---     end
--- end
+PrefabFiles = {
+    "right_joystick_spell_book"
+}

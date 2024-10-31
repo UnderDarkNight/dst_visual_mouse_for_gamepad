@@ -322,6 +322,134 @@ local flg,error_code = pcall(function()
         -- TheInputProxy:SetOSCursorPos(window_w,window_h)
 
     ----------------------------------------------------------------------------------------------------------------
+    ----
+            -- local handler = TheInput:AddGeneralControlHandler(function(key,down)
+            --     print("handler",key,down)
+            -- end)
+            -- ThePlayer:DoTaskInTime(10,function()
+            --     handler:Remove()
+            -- end)
+
+        -- ThePlayer.replica.right_joystick_controller:Active()
+        -- ThePlayer.replica.right_joystick_controller:Deactive()
+
+        -- TheFrontEnd:LockFocus(true)
+
+        -- local inst = ThePlayer.replica.right_joystick_controller:GetSpellBook()
+        -- if inst then
+
+        --     inst:AddTag("remotecontrol")
+        --     inst.components.aoetargeting:SetDeployRadius(1)
+		-- 	inst.components.aoetargeting:SetShouldRepeatCastFn(function(inst,doer)
+        --         return true
+        --     end)
+		-- 	inst.components.aoetargeting.reticule.reticuleprefab = "reticuleaoe_1d2_12"
+		-- 	inst.components.aoetargeting.reticule.pingprefab = "reticuleaoeping_1d2_12"
+
+        --     if TheWorld.ismastersim then
+
+        --         inst.components.aoetargeting:SetTargetFX("reticuleaoesummontarget_1d2")
+		-- 		inst.components.aoespell:SetSpellFn(function(inst, doer, pt)
+        --             print(" aoespell ++++++++ ",doer,pt)
+        --             return true
+        --         end)
+        --         inst.components.spellbook:SetSpellFn(nil)
+        --         inst.components.aoetargeting:SetEnabled(true)
+        --         inst.components.aoetargeting:SetRange(30)
+
+        --     end
+
+        --     local playercontroller = ThePlayer.components.playercontroller
+        --     if playercontroller ~= nil then
+        --         playercontroller:StartAOETargetingUsing(inst)
+        --     end
+
+        --     print("FFFFF",inst)
+        -- end
+
+
+        -- ThePlayer:ListenForEvent("oncastaoespell", function(player,_table)
+        --     -- { item = self.inst, pos = pos, success = success }
+        --     print("oncastaoespell",_table and _table.item,_table and _table.pos,_table and _table.success)
+
+        -- end)
+        -- require("debugcommands")
+        -- -- local item = SpawnPrefab("waxwelljournal")
+        -- -- ThePlayer.components.inventory:GiveItem(item)
+        -- local item = ThePlayer:SpawnChild("waxwelljournal")
+        -- item.components.inventoryitem:SetOwner(ThePlayer)
+        -- d_spell(1,item)
+
+        -- item:DoTaskInTime(10,item.Remove)
+
+        -- if not ThePlayer.sg_event_listener then
+        --     ThePlayer:ListenForEvent("newstate",function(inst,_table)
+        --         print("newstate",_table and _table.statename)
+        --     end)
+        --     ThePlayer.sg_event_listener = true
+        -- end
+
+
+        local function install_and_active_fn(inst)
+            inst:AddTag("remotecontrol") -- 给SG里切换动画用的。 ActionHandler(ACTIONS.CASTAOE,...) 需要这个tag切换SG
+
+            inst.components.aoetargeting:SetDeployRadius(10)
+			inst.components.aoetargeting:SetShouldRepeatCastFn(function(inst,doer)
+                return true
+            end)
+			inst.components.aoetargeting.reticule.reticuleprefab = "reticuleaoe_1d2_12"
+			inst.components.aoetargeting.reticule.pingprefab = "reticuleaoeping_1d2_12"
+
+            if TheWorld.ismastersim then
+
+                inst.components.aoetargeting:SetTargetFX("reticuleaoesummontarget_1d2")
+				inst.components.aoespell:SetSpellFn(function(inst, doer, pt)
+                    print(" aoespell ++++++++ ",doer,pt)
+                    return true
+                end)
+                inst.components.spellbook:SetSpellFn(nil)
+                inst.components.aoetargeting:SetEnabled(true)
+                inst.components.aoetargeting:SetRange(30)
+
+            end
+
+        end
+
+        ThePlayer.replica.right_joystick_controller:Install_And_Active_Spell(install_and_active_fn)
+
+        -- local spellbook = ThePlayer.replica.right_joystick_controller:GetSpellBook()
+        -- print("spellbook",spellbook)
+        -- local playercontroller = ThePlayer.components.playercontroller
+        -- if playercontroller ~= nil then
+        --     playercontroller:StartAOETargetingUsing(spellbook)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    --- test with cave
+        -- local inst = ThePlayer.replica.right_joystick_controller:GetSpellBook()
+        -- inst:AddTag("remotecontrol") -- 给SG里切换动画用的。 ActionHandler(ACTIONS.CASTAOE,...) 需要这个tag切换SG
+
+        -- inst.components.aoetargeting:SetDeployRadius(10)
+        -- inst.components.aoetargeting:SetShouldRepeatCastFn(function(inst,doer)
+        --     return true
+        -- end)
+        -- inst.components.aoetargeting.reticule.reticuleprefab = "reticuleaoe_1d2_12"
+        -- inst.components.aoetargeting.reticule.pingprefab = "reticuleaoeping_1d2_12"
+
+        -- if TheWorld.ismastersim then
+
+        --     inst.components.aoetargeting:SetTargetFX("reticuleaoesummontarget_1d2")
+        --     inst.components.aoespell:SetSpellFn(function(inst, doer, pt)
+        --         print(" aoespell ++++++++ ",doer,pt)
+        --         return true
+        --     end)
+        --     inst.components.spellbook:SetSpellFn(nil)
+        --     inst.components.aoetargeting:SetEnabled(true)
+        --     inst.components.aoetargeting:SetRange(30)
+
+        -- end
+
+        -- ThePlayer.components.playercontroller:StartAOETargetingUsing(inst)
+    ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
 
